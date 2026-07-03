@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohid Akbar — Cybersecurity &amp; Software Development</title>
+<style>
+  :root{
+    --bg:#0B1120;
+    --surface:#111A2E;
+    --surface-2:#16223A;
+    --line:#233052;
+    --text:#E8ECF4;
+    --muted:#8B96AC;
+    --accent:#4FD1C5;
+    --accent-dim:#2E6E68;
+    --amber:#F2A65A;
+    --mono:'JetBrains Mono', 'Courier New', monospace;
+    --display:'Space Grotesk', 'Segoe UI', sans-serif;
+    --body:'Inter', 'Segoe UI', sans-serif;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--accent);color:var(--bg);}
+
+  .noise{
+    position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6vw;
+    background:rgba(11,17,32,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-brand{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.5px;}
+  .nav-brand span{color:var(--muted);}
+  .nav-links{display:flex;gap:32px;font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .nav-links a{transition:color .2s;position:relative;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-status{
+    display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .burger span{width:22px;height:2px;background:var(--text);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:140px 6vw 80px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:13px;color:var(--accent);
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);}
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(2.4rem,6vw,5rem);
+    line-height:1.05;letter-spacing:-.02em;
+    max-width:900px;
+  }
+  h1 .hl{color:var(--accent);}
+  .hero-sub{
+    margin-top:28px;max-width:560px;color:var(--muted);font-size:1.05rem;
+  }
+  .hero-actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:13px 26px;border-radius:2px;
+    border:1px solid var(--line);transition:all .25s;letter-spacing:.3px;
+  }
+  .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:500;}
+  .btn-primary:hover{background:transparent;color:var(--accent);}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* handshake diagram */
+  .handshake{
+    margin-top:70px;max-width:640px;
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+  }
+  .hs-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;position:relative;}
+  .hs-label{width:90px;flex-shrink:0;color:var(--text);}
+  .hs-track{flex:1;height:1px;background:var(--line);position:relative;overflow:visible;}
+  .hs-pkt{
+    position:absolute;top:-5px;width:11px;height:11px;background:var(--accent);
+    transform:rotate(45deg);opacity:0;
+  }
+  .hs-tag{position:absolute;top:-22px;font-size:11px;color:var(--accent);opacity:0;}
+  @keyframes fly-right{0%{left:0;opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{left:calc(100% - 11px);opacity:0;}}
+  @keyframes fly-left{0%{left:calc(100% - 11px);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{left:0;opacity:0;}}
+  .r1 .hs-pkt{animation:fly-right 2.6s ease-in-out infinite;}
+  .r1 .hs-tag{animation:fly-right 2.6s ease-in-out infinite;}
+  .r2 .hs-pkt{animation:fly-left 2.6s ease-in-out infinite;animation-delay:.87s;}
+  .r2 .hs-tag{animation:fly-left 2.6s ease-in-out infinite;animation-delay:.87s;}
+  .r3 .hs-pkt{animation:fly-right 2.6s ease-in-out infinite;animation-delay:1.74s;background:var(--amber);}
+  .r3 .hs-tag{animation:fly-right 2.6s ease-in-out infinite;animation-delay:1.74s;color:var(--amber);}
+
+  @media(prefers-reduced-motion:reduce){
+    .hs-pkt,.hs-tag,.dot{animation:none!important;opacity:1;}
+  }
+
+  section{padding:120px 6vw;position:relative;}
+  .section-head{margin-bottom:56px;}
+  .section-num{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:2px;margin-bottom:12px;}
+  .section-title{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,3.5vw,2.6rem);}
+  .section-desc{color:var(--muted);max-width:560px;margin-top:14px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;}
+  .about-text p{color:var(--muted);margin-bottom:18px;max-width:560px;}
+  .about-text strong{color:var(--text);font-weight:500;}
+  .stat-block{
+    border:1px solid var(--line);padding:24px;border-radius:2px;background:var(--surface);
+    margin-bottom:16px;
+  }
+  .stat-num{font-family:var(--mono);font-size:1.8rem;color:var(--accent);}
+  .stat-lbl{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:1px;}
+
+  /* ---------- SKILLS (protocol stack) ---------- */
+  .stack{border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  .stack-layer{
+    display:grid;grid-template-columns:70px 200px 1fr;gap:20px;
+    padding:22px 26px;border-bottom:1px solid var(--line);align-items:center;
+    transition:background .2s;
+  }
+  .stack-layer:last-child{border-bottom:none;}
+  .stack-layer:hover{background:var(--surface-2);}
+  .layer-idx{font-family:var(--mono);color:var(--accent);font-size:13px;}
+  .layer-name{font-family:var(--display);font-weight:600;font-size:1rem;}
+  .layer-items{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    border:1px solid var(--line);padding:5px 10px;border-radius:20px;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .project{
+    background:var(--bg);padding:40px 36px;display:grid;grid-template-columns:60px 1fr 200px;gap:30px;
+    transition:background .25s;position:relative;
+  }
+  .project:hover{background:var(--surface);}
+  .proj-idx{font-family:var(--mono);color:var(--accent-dim);font-size:13px;}
+  .project:hover .proj-idx{color:var(--accent);}
+  .proj-title{font-family:var(--display);font-weight:600;font-size:1.35rem;margin-bottom:10px;}
+  .proj-desc{color:var(--muted);font-size:.95rem;max-width:520px;margin-bottom:16px;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .proj-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end;justify-content:center;}
+  .proj-link{font-family:var(--mono);font-size:12.5px;color:var(--text);border-bottom:1px solid var(--line);padding-bottom:2px;transition:.2s;}
+  .proj-link:hover{color:var(--accent);border-color:var(--accent);}
+
+  @media(max-width:820px){
+    .project{grid-template-columns:1fr;gap:14px;}
+    .proj-links{align-items:flex-start;flex-direction:row;flex-wrap:wrap;}
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-item{
+    display:grid;grid-template-columns:180px 1fr;gap:30px;padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .exp-item:first-child{border-top:1px solid var(--line);}
+  .exp-time{font-family:var(--mono);color:var(--muted);font-size:13px;}
+  .exp-role{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:6px;}
+  .exp-org{color:var(--accent);font-size:.9rem;margin-bottom:10px;font-family:var(--mono);}
+  .exp-desc{color:var(--muted);font-size:.92rem;max-width:520px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:36px;}
+  .contact-big{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.5vw,3.2rem);max-width:700px;line-height:1.15;}
+  .contact-big .hl{color:var(--accent);}
+  .contact-links{display:flex;gap:26px;flex-wrap:wrap;}
+  .contact-links a{
+    font-family:var(--mono);font-size:13px;padding:14px 24px;border:1px solid var(--line);border-radius:2px;transition:.2s;
+  }
+  .contact-links a:hover{border-color:var(--accent);color:var(--accent);}
+
+  footer{
+    padding:36px 6vw;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;color:var(--muted);
+    font-family:var(--mono);font-size:12px;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:900px){
+    .about-grid{grid-template-columns:1fr;}
+    .stack-layer{grid-template-columns:1fr;gap:8px;}
+    .project{grid-template-columns:1fr;}
+    .exp-item{grid-template-columns:1fr;gap:8px;}
+    .nav-links,.nav-status{display:none;}
+    .burger{display:flex;}
+  }
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<nav>
+  <div class="nav-brand">mohid<span>@</span>portfolio<span>:~$</span></div>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#experience">experience</a>
+    <a href="#contact">contact</a>
+  </div>
+  <div class="nav-status"><span class="dot"></span>available for work</div>
+  <div class="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">BS Cybersecurity · University of Management &amp; Technology, Lahore</div>
+  <h1>Mohid Akbar builds<br>software that <span class="hl">holds up</span><br>under scrutiny.</h1>
+  <p class="hero-sub">
+    Second-year cybersecurity student who ships full applications, not just proofs of concept —
+    from SQL-backed hospital systems to packet-level intrusion tooling. I like the parts of security
+    that force you to actually understand what you built.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View projects</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+
+  <div class="handshake" aria-hidden="true">
+    <div class="hs-row r1">
+      <div class="hs-label">client</div>
+      <div class="hs-track"><div class="hs-tag">SYN</div><div class="hs-pkt"></div></div>
+    </div>
+    <div class="hs-row r2">
+      <div class="hs-label">server</div>
+      <div class="hs-track"><div class="hs-tag">SYN-ACK</div><div class="hs-pkt"></div></div>
+    </div>
+    <div class="hs-row r3">
+      <div class="hs-label">client</div>
+      <div class="hs-track"><div class="hs-tag">ACK — connection established</div><div class="hs-pkt"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head">
+    <div class="section-num">01 / ABOUT</div>
+    <div class="section-title">Grounded in both sides of the field</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a second-year <strong>BS Cybersecurity</strong> student at UMT Lahore, currently holding a
+      <strong>3.56 CGPA</strong> across coursework in Information Assurance, Database Systems, Networking,
+      and Open Source Software Development.</p>
+      <p>What I actually enjoy is building — I gravitate toward projects where security and development
+      overlap: designing the database that has to survive bad input, writing the packet tool that has to
+      parse malformed traffic, configuring the network that has to resist misconfiguration. I'd rather
+      ship something real than memorize a checklist.</p>
+      <p>Outside coursework, five years managing a team at <strong>Afters Ice Cream</strong> taught me the
+      unglamorous half of shipping things: staying calm under pressure, owning mistakes, and getting people
+      to actually finish what they start.</p>
+    </div>
+    <div>
+      <div class="stat-block"><div class="stat-num">3.56</div><div class="stat-lbl">CGPA · BS Cybersecurity</div></div>
+      <div class="stat-block"><div class="stat-num">5+</div><div class="stat-lbl">Shipped projects</div></div>
+      <div class="stat-block"><div class="stat-num">5 yrs</div><div class="stat-lbl">Team management experience</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-head">
+    <div class="section-num">02 / SKILLS</div>
+    <div class="section-title">The stack, layer by layer</div>
+    <p class="section-desc">Organized like the systems I work on — from wire-level analysis up to the application a user actually touches.</p>
+  </div>
+  <div class="stack">
+    <div class="stack-layer">
+      <div class="layer-idx">L1</div>
+      <div class="layer-name">Network &amp; Security</div>
+      <div class="layer-items">
+        <span class="chip">Nmap</span><span class="chip">Wireshark</span><span class="chip">Cisco CLI / Packet Tracer</span>
+        <span class="chip">VLANs &amp; static routing</span><span class="chip">RSA / ECDSA / PKI</span>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-idx">L2</div>
+      <div class="layer-name">Systems &amp; Scripting</div>
+      <div class="layer-items">
+        <span class="chip">Python</span><span class="chip">Scapy</span><span class="chip">C++ (OOP)</span>
+        <span class="chip">Git / GitHub</span>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-idx">L3</div>
+      <div class="layer-name">Data</div>
+      <div class="layer-items">
+        <span class="chip">SQL</span><span class="chip">Schema design</span><span class="chip">Stored procedures</span>
+      </div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-idx">L4</div>
+      <div class="layer-name">Application</div>
+      <div class="layer-items">
+        <span class="chip">HTML / CSS / JS</span><span class="chip">Frontend integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head">
+    <div class="section-num">03 / PROJECTS</div>
+    <div class="section-title">Selected work</div>
+  </div>
+  <div class="projects">
+
+    <div class="project">
+      <div class="proj-idx">01</div>
+      <div>
+        <div class="proj-title">Hospital Patient Flow &amp; Billing System</div>
+        <div class="proj-desc">A full patient admissions and billing platform built for a fictional
+        Shifa Medical Centre — normalized SQL schema, stored procedures for billing logic, and a
+        pure HTML/CSS/JS frontend covering admissions and billing workflows end to end.</div>
+        <div class="proj-tags"><span class="chip">SQL</span><span class="chip">Stored Procedures</span><span class="chip">HTML/CSS/JS</span></div>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-idx">02</div>
+      <div>
+        <div class="proj-title">Inter-VLAN Firewall</div>
+        <div class="proj-desc">Cisco Packet Tracer network implementing inter-VLAN routing with
+        firewall access control — VLAN segmentation, management IP configuration, and secured
+        switch/router topology, documented in a full project README.</div>
+        <div class="proj-tags"><span class="chip">Cisco Packet Tracer</span><span class="chip">VLANs</span><span class="chip">Access Control</span></div>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-idx">03</div>
+      <div>
+        <div class="proj-title">ScapyShield</div>
+        <div class="proj-desc">A Python/Scapy-based packet forging and intrusion detection tool —
+        built hands-on experience in low-level packet crafting, traffic analysis, and detection logic
+        while working through real driver and environment configuration issues on Windows.</div>
+        <div class="proj-tags"><span class="chip">Python</span><span class="chip">Scapy</span><span class="chip">Intrusion Detection</span></div>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-idx">04</div>
+      <div>
+        <div class="proj-title">Hospital Management System (C++)</div>
+        <div class="proj-desc">An object-oriented hospital management application built in C++,
+        covering patient records, staff, and core hospital operations through a clean class-based design.</div>
+        <div class="proj-tags"><span class="chip">C++</span><span class="chip">OOP</span></div>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="proj-idx">05</div>
+      <div>
+        <div class="proj-title">Snake &amp; Ladder / Skyscraper (C++)</div>
+        <div class="proj-desc">A pair of classic logic games built in C++ to work through core
+        object-oriented game development patterns — state management, turn logic, and win conditions.</div>
+        <div class="proj-tags"><span class="chip">C++</span><span class="chip">Game Development</span></div>
+      </div>
+      <div class="proj-links">
+        <a class="proj-link" href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-head">
+    <div class="section-num">04 / EXPERIENCE</div>
+    <div class="section-title">Track record</div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-time">2020 — 2025</div>
+    <div>
+      <div class="exp-role">Team Manager</div>
+      <div class="exp-org">Afters Ice Cream</div>
+      <div class="exp-desc">Five years leading a team through day-to-day operations —
+      scheduling, training, and handling problems in real time. The kind of role that builds
+      judgment and reliability rather than a technical skill line, but shows up in how I work.</div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-time">2024 — Present</div>
+    <div>
+      <div class="exp-role">BS Cybersecurity</div>
+      <div class="exp-org">University of Management &amp; Technology, Lahore</div>
+      <div class="exp-desc">Coursework in Information Assurance, Database Systems, Networking, and
+      Open Source Software Development. Current CGPA: 3.56.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="section-num">05 / CONTACT</div>
+    <div class="contact-big">Building something and need<br>a hand on the <span class="hl">security</span> or
+    <span class="hl">dev</span> side?</div>
+    <div class="contact-links">
+      <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://linkedin.com/in/mohid-akbar-413348186" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Mohid Akbar</div>
+  <div>Lahore, Pakistan</div>
+</footer>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', () => {
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    navLinks.style.position = 'fixed';
+    navLinks.style.top = '64px';
+    navLinks.style.right = '6vw';
+    navLinks.style.background = 'var(--surface)';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.padding = '20px';
+    navLinks.style.border = '1px solid var(--line)';
+    navLinks.style.gap = '18px';
+  });
+</script>
+
+</body>
+</html>
