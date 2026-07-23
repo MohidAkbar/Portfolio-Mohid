@@ -9,6 +9,8 @@
 { "imports": { "three": "https://unpkg.com/three@0.157.0/build/three.module.js" } }
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -131,8 +133,6 @@ a{color:inherit;text-decoration:none}
 .skill-tile .tile-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .chip{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:5px;transition:all var(--transition)}
 .skill-tile:hover .chip{border-color:var(--blue);color:var(--blue)}
-@media(max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.skills-grid{grid-template-columns:1fr}}
 
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .proj-panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:all var(--transition);cursor:pointer;position:relative}
@@ -145,12 +145,12 @@ a{color:inherit;text-decoration:none}
 .proj-panel.featured .proj-name{font-size:2rem}
 .proj-panel .proj-info{color:var(--muted);font-size:0.95rem;font-weight:300;line-height:1.7}
 .proj-panel .proj-expand{max-height:0;overflow:hidden;transition:max-height 0.5s ease,padding 0.5s ease}
-.proj-panel.open .proj-expand{max-height:400px;padding-top:18px}
-.proj-panel .proj-expand-inner{border-top:1px solid var(--line);padding-top:18px}
-.proj-panel .proj-expand-inner .chip{margin:3px}
-.proj-panel .proj-link{display:inline-block;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:3px;transition:all var(--transition)}
+.proj-panel.open .proj-expand{max-height:500px;padding-top:18px}
+.proj-panel .proj-expand-inner{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.proj-panel .proj-expand-inner .chip{margin:0;flex:0 0 auto}
+.proj-panel .proj-link{display:inline-block;margin-top:0;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:3px;transition:all var(--transition)}
 .proj-panel .proj-link:hover{color:#fff;border-color:#fff}
-@media(max-width:900px){.proj-grid{grid-template-columns:1fr}.proj-panel.featured{grid-column:span 1}}
+.proj-panel .proj-expand-inner .full-width{width:100%;text-align:center;margin-top:6px}
 
 .exp-scroll{max-width:800px;margin:0 auto;position:relative}
 .exp-scroll::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line);transform:translateX(-50%)}
@@ -194,6 +194,34 @@ a{color:inherit;text-decoration:none}
 @keyframes particleBurst{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
 
 footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10px;border-top:1px solid var(--line)}
+
+@media(max-width:900px){
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .skills-grid{grid-template-columns:1fr}
+  .skill-tile .tile-chips .chip{font-size:9px;padding:3px 8px}
+}
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr;gap:14px}
+  .proj-panel.featured{grid-column:span 1}
+  .proj-panel .proj-inner{padding:20px 16px}
+  .proj-panel .proj-name{font-size:1.2rem!important}
+  .proj-panel.featured .proj-name{font-size:1.3rem!important}
+  .proj-panel .proj-info{font-size:0.85rem}
+  .proj-panel .proj-num{font-size:4rem;right:10px;top:0px}
+  .proj-panel .proj-expand{max-height:0}
+  .proj-panel.open .proj-expand{max-height:600px}
+  .proj-panel .proj-expand-inner{gap:6px;padding-top:14px}
+  .proj-panel .proj-expand-inner .chip{font-size:9px;padding:4px 10px}
+  .proj-panel .proj-link{width:100%;text-align:center;margin-top:6px;padding-top:6px;border-top:1px solid var(--line)}
+}
+@media(max-width:400px){
+  .proj-panel .proj-expand-inner .chip{font-size:8px;padding:3px 8px}
+  .proj-panel .proj-inner{padding:16px 12px}
+  .proj-panel .proj-name{font-size:1rem!important}
+  .proj-panel.featured .proj-name{font-size:1.1rem!important}
+}
 </style>
 </head>
 <body>
@@ -335,7 +363,7 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
   <div class="section-title fade-explode">Selected Work</div>
   <div class="section-subtitle fade-explode">Click any project card to expand details.</div>
   <div class="proj-grid">
-    <!-- NEW PROJECT - TAXI RAYAN ARNHEM (First International Freelance) -->
+    <!-- TAXI RAYAN ARNHEM - First International Freelance -->
     <div class="proj-panel featured explode-in" style="animation-delay:0.05s;border-color:rgba(255,215,0,0.4);background:linear-gradient(135deg,var(--surface),rgba(255,215,0,0.05));" onclick="this.classList.toggle('open')">
       <div class="proj-num" style="color:rgba(255,215,0,0.08);">★</div>
       <div class="proj-inner">
@@ -345,18 +373,18 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-expand"><div class="proj-expand-inner">
           <span class="chip" style="border-color:var(--gold);color:var(--gold);">HTML/CSS/JS</span>
           <span class="chip" style="border-color:var(--gold);color:var(--gold);">WhatsApp API</span>
-          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Multi-language</span>
-          <span class="chip" style="border-color:var(--gold);color:var(--gold);">SEO/Schema.org</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Multi-Language</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">SEO/Schema</span>
           <span class="chip" style="border-color:var(--gold);color:var(--gold);">Google Analytics</span>
           <span class="chip" style="border-color:var(--gold);color:var(--gold);">Responsive Design</span>
           <span class="chip" style="border-color:var(--gold);color:var(--gold);">Freelance</span>
-          <br><span style="display:inline-block;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);">⭐ First international client · Delivered 2026</span>
-          <br><a href="https://www.taxirayanarnhem.nl" target="_blank" rel="noopener" class="proj-link" style="color:var(--gold);border-color:var(--gold);">View Live Project →</a>
+          <span class="full-width" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);">⭐ First international client · Delivered 2026</span>
+          <a href="https://www.taxirayanarnhem.nl" target="_blank" rel="noopener" class="proj-link" style="color:var(--gold);border-color:var(--gold);">View Live Project →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 1 (now #2) -->
+    <!-- Project 2 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.15s" onclick="this.classList.toggle('open')">
       <div class="proj-num">02</div>
       <div class="proj-inner">
@@ -364,13 +392,19 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">VulnScanner Pro v2.0</div>
         <div class="proj-info">A full-featured web vulnerability scanner with cyberpunk GUI. Scans websites for SQL injection, XSS, exposed files, open directories, missing security headers, and open ports.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">BeautifulSoup</span><span class="chip">HTML/CSS/JS</span><span class="chip">PyInstaller</span><span class="chip">SQLi</span><span class="chip">XSS</span>
-          <br><a href="https://github.com/MohidAkbar/VulnScanner" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">Python</span>
+          <span class="chip">Flask</span>
+          <span class="chip">BeautifulSoup</span>
+          <span class="chip">HTML/CSS/JS</span>
+          <span class="chip">PyInstaller</span>
+          <span class="chip">SQLi</span>
+          <span class="chip">XSS</span>
+          <a href="https://github.com/MohidAkbar/VulnScanner" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 2 (now #3) -->
+    <!-- Project 3 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.25s" onclick="this.classList.toggle('open')">
       <div class="proj-num">03</div>
       <div class="proj-inner">
@@ -378,13 +412,16 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">Inter-VLAN Firewall</div>
         <div class="proj-info">Cisco Packet Tracer network implementing inter-VLAN routing with firewall access control — VLAN segmentation, management IP configuration, secured switch/router topology.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">Packet Tracer</span><span class="chip">VLANs</span><span class="chip">ACLs</span><span class="chip">Routing</span>
-          <br><a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">Packet Tracer</span>
+          <span class="chip">VLANs</span>
+          <span class="chip">ACLs</span>
+          <span class="chip">Routing</span>
+          <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 3 (now #4) -->
+    <!-- Project 4 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.35s" onclick="this.classList.toggle('open')">
       <div class="proj-num">04</div>
       <div class="proj-inner">
@@ -392,13 +429,16 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">ScapyShield</div>
         <div class="proj-info">A Python/Scapy-based packet forging and intrusion detection tool — hands-on packet crafting, traffic analysis, and detection logic.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">Python</span><span class="chip">Scapy</span><span class="chip">IDS</span><span class="chip">Packet Analysis</span>
-          <br><a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">Python</span>
+          <span class="chip">Scapy</span>
+          <span class="chip">IDS</span>
+          <span class="chip">Packet Analysis</span>
+          <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 4 (now #5) -->
+    <!-- Project 5 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.45s" onclick="this.classList.toggle('open')">
       <div class="proj-num">05</div>
       <div class="proj-inner">
@@ -406,13 +446,16 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">Hospital Management System</div>
         <div class="proj-info">An object-oriented hospital management application in C++ covering patient records, staff, and core operations through a clean class-based design.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">C++</span><span class="chip">OOP</span><span class="chip">Classes</span><span class="chip">Inheritance</span>
-          <br><a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">C++</span>
+          <span class="chip">OOP</span>
+          <span class="chip">Classes</span>
+          <span class="chip">Inheritance</span>
+          <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 5 (now #6) -->
+    <!-- Project 6 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.55s" onclick="this.classList.toggle('open')">
       <div class="proj-num">06</div>
       <div class="proj-inner">
@@ -420,13 +463,16 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">Hospital Patient Flow & Billing System</div>
         <div class="proj-info">A full patient admissions and billing platform — normalized SQL schema, stored procedures for billing logic, and a pure HTML/CSS/JS frontend covering admissions and billing workflows end to end.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">SQL</span><span class="chip">Stored Procedures</span><span class="chip">HTML/CSS/JS</span><span class="chip">Schema Design</span>
-          <br><a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">SQL</span>
+          <span class="chip">Stored Procedures</span>
+          <span class="chip">HTML/CSS/JS</span>
+          <span class="chip">Schema Design</span>
+          <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
 
-    <!-- Original Project 6 (now #7) -->
+    <!-- Project 7 -->
     <div class="proj-panel slide-explode" style="animation-delay:0.65s" onclick="this.classList.toggle('open')">
       <div class="proj-num">07</div>
       <div class="proj-inner">
@@ -434,8 +480,11 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="proj-name">Snake & Ladder / Skyscraper</div>
         <div class="proj-info">Classic logic games built in C++ — state management, turn logic, win conditions, OOP game-development patterns.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">C++</span><span class="chip">OOP</span><span class="chip">Game Dev</span><span class="chip">State Logic</span>
-          <br><a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+          <span class="chip">C++</span>
+          <span class="chip">OOP</span>
+          <span class="chip">Game Dev</span>
+          <span class="chip">State Logic</span>
+          <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
@@ -507,7 +556,7 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
 
 <div id="snakeOverlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,16,0.95);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;">
   <div style="text-align:center;margin-bottom:20px;">
-    <div style="font-size:14px;color:#00E676;letter-spacing:3px;text-transform:uppercase;animation:glitchSkew 0.3s infinite;">⬡ ACCESS GRANTED ⬡</div>
+    <div style="font-size:14px;color:#00E676;letter-spacing:3px;text-transform:uppercase;">⬡ ACCESS GRANTED ⬡</div>
     <div style="font-size:10px;color:#6B6B85;margin-top:8px;">SNAKE.EXE — Collect data packets</div>
     <div style="font-size:10px;color:#FF3B3B;margin-top:4px;">Score: <span id="snakeScore">0</span> &nbsp;|&nbsp; High: <span id="snakeHigh">0</span> &nbsp;|&nbsp; Press ESC to close</div>
   </div>
@@ -659,8 +708,7 @@ setTimeout(()=>{document.querySelectorAll('.hero-section .explode-in, .hero-sect
 document.querySelectorAll('a[href^="#"]').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();const t=document.getElementById(this.getAttribute('href').replace('#',''));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
 
 console.log('%c🔍 You found the console!', 'color:#FF3B3B;font-size:20px;');
-console.log('%c🐍 Press G or type "game" to play Snake! %cClick the shield 5 times fast!',
-  'color:#3B8CFF;font-size:14px;','color:#B388FF;font-size:14px;');
+console.log('%c🐍 Press G or type "game" to play Snake!', 'color:#3B8CFF;font-size:14px;');
 
 const snakeOverlay = document.getElementById('snakeOverlay');
 const snakeCanvas = document.getElementById('snakeCanvas');
