@@ -32,17 +32,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--accent);color:#fff}
 
-.easter-egg-text {
-  position:fixed; bottom:10px; right:10px; font-family:'JetBrains Mono',monospace;
-  font-size:9px; color:rgba(255,255,255,0.03); z-index:9999; cursor:default;
-  user-select:none; transition:all 0.5s ease; padding:5px;
-}
-.easter-egg-text:hover {
-  color:#FF3B3B !important; font-size:13px !important; text-shadow:0 0 20px rgba(255,59,59,0.8);
-  background:rgba(5,5,16,0.95); padding:14px 20px; border-radius:10px;
-  border:2px solid #FF3B3B; z-index:10001;
-}
-
 .top-menu {
   position:fixed; top:0; left:0; right:0; z-index:100;
   background:rgba(5,5,16,0.9); backdrop-filter:blur(20px);
@@ -57,9 +46,7 @@ a{color:inherit;text-decoration:none}
 }
 .menu-logo .logo-dot {
   width:8px; height:8px; background:var(--accent); border-radius:50%;
-  box-shadow:0 0 10px var(--accent-glow); animation:pulse 2s ease-in-out infinite;
 }
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 .menu-logo span{color:var(--blue); font-weight:400;}
 .menu-links {
   display:flex; gap:32px; align-items:center;
@@ -181,7 +168,13 @@ a{color:inherit;text-decoration:none}
 
 .contact-section{text-align:center;max-width:700px;margin:0 auto}
 .contact-title{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3.2rem);line-height:1.15;margin-bottom:36px}
-.contact-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.contact-info{display:flex;flex-direction:column;gap:12px;margin:30px 0;align-items:center}
+.contact-item{display:flex;align-items:center;gap:12px;padding:14px 24px;background:var(--surface);border:1px solid var(--line);border-radius:12px;transition:all var(--transition);width:100%;max-width:400px;justify-content:center}
+.contact-item:hover{border-color:var(--accent);box-shadow:0 0 30px var(--accent-glow);transform:translateX(6px)}
+.contact-item i{color:var(--accent);font-size:1.2rem;width:24px}
+.contact-item a{color:var(--text);font-size:0.95rem;font-weight:500;transition:color var(--transition)}
+.contact-item a:hover{color:var(--accent)}
+.contact-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 .morph-btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;padding:18px 36px;border:2px solid var(--line);border-radius:50px;background:transparent;color:var(--text);cursor:pointer;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);text-transform:uppercase;letter-spacing:1px;position:relative;overflow:hidden}
 .morph-btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);z-index:-1;border-radius:50px}
 .morph-btn:hover{color:#fff;border-color:var(--accent);box-shadow:0 0 45px var(--accent-glow);transform:scale(1.08)}
@@ -207,8 +200,6 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
 
 <canvas id="threeBg"></canvas>
 <div class="scanline"></div>
-
-<div class="easter-egg-text" title="You found it!">U FINALLY GOT ME — TAKE A SCREENSHOT AND GET ONE SERVICE FREE</div>
 
 <header class="top-menu" id="topMenu">
   <div class="menu-logo">
@@ -271,7 +262,7 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
     </div>
     <div class="dash-card slide-explode" style="animation-delay:0.2s">
       <div class="dash-icon">🚀</div>
-      <div class="dash-num counter" data-target="6">0</div>
+      <div class="dash-num counter" data-target="7">0</div>
       <div class="dash-lbl">Projects Shipped</div>
       <div class="dash-desc">End-to-end, not just proofs of concept</div>
     </div>
@@ -344,20 +335,44 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
   <div class="section-title fade-explode">Selected Work</div>
   <div class="section-subtitle fade-explode">Click any project card to expand details.</div>
   <div class="proj-grid">
-    <div class="proj-panel featured explode-in" style="animation-delay:0.1s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">01</div>
+    <!-- NEW PROJECT - TAXI RAYAN ARNHEM (First International Freelance) -->
+    <div class="proj-panel featured explode-in" style="animation-delay:0.05s;border-color:rgba(255,215,0,0.4);background:linear-gradient(135deg,var(--surface),rgba(255,215,0,0.05));" onclick="this.classList.toggle('open')">
+      <div class="proj-num" style="color:rgba(255,215,0,0.08);">★</div>
+      <div class="proj-inner">
+        <div class="proj-cat" style="color:var(--gold);">🌍 Freelance · First International Client</div>
+        <div class="proj-name" style="color:var(--gold);">TAXI RAYAN ARNHEM</div>
+        <div class="proj-info" style="font-weight:400;">A complete taxi booking platform for a professional chauffeur service in the Netherlands. Features multi-language support (NL/EN), WhatsApp API integration for real-time booking confirmations, SEO optimization with Schema.org markup, Google Analytics tracking, and a responsive dark-themed UI. Built as my first international freelance project — client in Arnhem, Netherlands.</div>
+        <div class="proj-expand"><div class="proj-expand-inner">
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">HTML/CSS/JS</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">WhatsApp API</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Multi-language</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">SEO/Schema.org</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Google Analytics</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Responsive Design</span>
+          <span class="chip" style="border-color:var(--gold);color:var(--gold);">Freelance</span>
+          <br><span style="display:inline-block;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);">⭐ First international client · Delivered 2026</span>
+          <br><a href="#" target="_blank" rel="noopener" class="proj-link" style="color:var(--gold);border-color:var(--gold);">View Live Project →</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Original Project 1 (now #2) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.15s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">02</div>
       <div class="proj-inner">
         <div class="proj-cat">🛡️ Featured — Cybersecurity Tool</div>
         <div class="proj-name">VulnScanner Pro v2.0</div>
-        <div class="proj-info">A full-featured web vulnerability scanner with cyberpunk GUI. Scans websites for SQL injection, XSS, exposed files, open directories, missing security headers, and open ports. Includes real-time severity dashboard, scan history, and one-click report export. Standalone Windows EXE available.</div>
+        <div class="proj-info">A full-featured web vulnerability scanner with cyberpunk GUI. Scans websites for SQL injection, XSS, exposed files, open directories, missing security headers, and open ports.</div>
         <div class="proj-expand"><div class="proj-expand-inner">
-          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">BeautifulSoup</span><span class="chip">HTML/CSS/JS</span><span class="chip">PyInstaller</span><span class="chip">SQLi</span><span class="chip">XSS</span><span class="chip">Port Scanning</span>
+          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">BeautifulSoup</span><span class="chip">HTML/CSS/JS</span><span class="chip">PyInstaller</span><span class="chip">SQLi</span><span class="chip">XSS</span>
           <br><a href="https://github.com/MohidAkbar/VulnScanner" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
         </div></div>
       </div>
     </div>
-    <div class="proj-panel slide-explode" style="animation-delay:0.2s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">02</div>
+
+    <!-- Original Project 2 (now #3) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.25s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">03</div>
       <div class="proj-inner">
         <div class="proj-cat">🔒 Network Security</div>
         <div class="proj-name">Inter-VLAN Firewall</div>
@@ -368,8 +383,10 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         </div></div>
       </div>
     </div>
-    <div class="proj-panel slide-explode" style="animation-delay:0.3s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">03</div>
+
+    <!-- Original Project 3 (now #4) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.35s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">04</div>
       <div class="proj-inner">
         <div class="proj-cat">🛡️ Security Tooling</div>
         <div class="proj-name">ScapyShield</div>
@@ -380,8 +397,10 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         </div></div>
       </div>
     </div>
-    <div class="proj-panel slide-explode" style="animation-delay:0.4s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">04</div>
+
+    <!-- Original Project 4 (now #5) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.45s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">05</div>
       <div class="proj-inner">
         <div class="proj-cat">💻 OOP Application</div>
         <div class="proj-name">Hospital Management System</div>
@@ -392,8 +411,10 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         </div></div>
       </div>
     </div>
-    <div class="proj-panel slide-explode" style="animation-delay:0.5s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">05</div>
+
+    <!-- Original Project 5 (now #6) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.55s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">06</div>
       <div class="proj-inner">
         <div class="proj-cat">🗄️ Full-Stack Database App</div>
         <div class="proj-name">Hospital Patient Flow & Billing System</div>
@@ -404,8 +425,10 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         </div></div>
       </div>
     </div>
-    <div class="proj-panel slide-explode" style="animation-delay:0.6s" onclick="this.classList.toggle('open')">
-      <div class="proj-num">06</div>
+
+    <!-- Original Project 6 (now #7) -->
+    <div class="proj-panel slide-explode" style="animation-delay:0.65s" onclick="this.classList.toggle('open')">
+      <div class="proj-num">07</div>
       <div class="proj-inner">
         <div class="proj-cat">🎮 Game Development</div>
         <div class="proj-name">Snake & Ladder / Skyscraper</div>
@@ -443,6 +466,16 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
         <div class="exp-desc">Five years leading a team through day-to-day operations — scheduling, training, and handling problems in real time. <strong style="color:var(--accent)">Builds judgment and reliability that shows up in how I work.</strong></div>
       </div>
     </div>
+    <div class="exp-item fade-explode">
+      <div></div>
+      <div class="exp-content">
+        <div class="exp-dot"></div>
+        <div class="exp-time">2026</div>
+        <div class="exp-role">Freelance Web Developer</div>
+        <div class="exp-org">TAXI RAYAN ARNHEM — First International Client</div>
+        <div class="exp-desc">Delivered a complete multilingual taxi booking platform for a client in the Netherlands. <strong style="color:var(--gold)">Built with HTML/CSS/JS, WhatsApp API integration, and SEO optimization.</strong> This project marked my first international freelance success, demonstrating ability to work with clients across time zones and deliver professional-grade solutions.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -450,6 +483,18 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
   <div class="contact-section">
     <div class="section-tag fade-explode">05 — CONTACT</div>
     <div class="contact-title fade-explode">Building something and need<br>a hand on the <span style="color:var(--accent)">security</span> or <span style="color:var(--blue)">dev</span> side?</div>
+    
+    <div class="contact-info fade-explode">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:mohidakbar33@gmail.com">mohidakbar33@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <a href="tel:+923092246156">+92 309 2246156</a>
+      </div>
+    </div>
+
     <div class="contact-btns fade-explode" style="animation-delay:0.2s">
       <a href="https://github.com/MohidAkbar" target="_blank" rel="noopener" class="morph-btn">GitHub <span class="arrow">→</span></a>
       <a href="https://linkedin.com/in/mohid-akbar-413348186" target="_blank" rel="noopener" class="morph-btn" style="border-color:var(--blue)">LinkedIn <span class="arrow">→</span></a>
@@ -457,7 +502,7 @@ footer{padding:30px 5vw;text-align:center;color:var(--muted);font-family:'JetBra
   </div>
 </section>
 
-<footer>© 2026 Mohid Akbar &nbsp;·&nbsp; DOC. PORTFOLIO-01 &nbsp;·&nbsp; REV. 5.0</footer>
+<footer>© 2026 Mohid Akbar &nbsp;·&nbsp; DOC. PORTFOLIO-01 &nbsp;·&nbsp; REV. 6.0</footer>
 </div>
 
 <div id="snakeOverlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,16,0.95);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;">
@@ -613,8 +658,7 @@ setTimeout(()=>{document.querySelectorAll('.hero-section .explode-in, .hero-sect
 
 document.querySelectorAll('a[href^="#"]').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();const t=document.getElementById(this.getAttribute('href').replace('#',''));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
 
-console.log('%c🔍 You found the console! %cU FINALLY GOT ME — TAKE A SCREENSHOT AND GET ONE SERVICE FREE %c📸',
-  'color:#FF3B3B;font-size:20px;','color:#00E676;font-size:16px;font-weight:bold;','color:#FFD600;font-size:20px;');
+console.log('%c🔍 You found the console!', 'color:#FF3B3B;font-size:20px;');
 console.log('%c🐍 Press G or type "game" to play Snake! %cClick the shield 5 times fast!',
   'color:#3B8CFF;font-size:14px;','color:#B388FF;font-size:14px;');
 
@@ -753,7 +797,6 @@ document.getElementById('hero3D').addEventListener('click',(e)=>{
 });
 
 console.log('🐍 Snake game ready — Press G, type "game", or click shield 5 times!');
-console.log('🔍 Hidden text at bottom-right corner of the page — hover to reveal!');
 </script>
 </body>
 </html>
