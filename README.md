@@ -35,7 +35,8 @@ HTML · CSS · JavaScript · Three.js · Font Awesome
 ```bash
 git clone https://github.com/MohidAkbar/portfolio.git
 open index.html
-Contact
+```
+## Contact
 📧 mohidakbar33@gmail.com
 
 📱 +92 309 2246156
